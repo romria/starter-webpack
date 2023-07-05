@@ -1,0 +1,41 @@
+{
+  "name": "starter-webpack-landing",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "webpack-dev-server --config=webpack.config.dev.js --progress",
+    "build": "webpack --config=webpack.config.prod.js --progress"
+  },
+  "author": "",
+  "license": "Unlicense",
+  "devDependencies": {
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.6",
+    "@babel/preset-env": "^7.22.6",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.3",
+    "image-minimizer-webpack-plugin": "^3.8.3",
+    "imagemin": "^8.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^10.0.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-import": "^15.1.0",
+    "postcss-loader": "^7.3.3",
+    "postcss-preset-env": "^9.0.0",
+    "postcss-scss": "^4.0.6",
+    "postcss-simple-vars": "^7.0.1",
+    "robotstxt-webpack-plugin": "^8.0.0",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-manifest-plugin": "^5.0.0",
+    "webpack-merge": "^5.9.0"
+  }
+}

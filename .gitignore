@@ -1,0 +1,6 @@
+.idea
+DS_*
+thumbs_db
+*.log
+node_modules
+build

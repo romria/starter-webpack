@@ -1,0 +1,13 @@
+@import "./variables.scss";
+
+body {
+  background-color: $color-body-bg;
+  color: $color-font-primary;
+  font-family: Inter, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
