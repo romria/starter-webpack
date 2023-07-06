@@ -6,7 +6,7 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   target: 'web',
-  entry: './src/index.js',
+  entry: './src/scripts/index.js',
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'build'),

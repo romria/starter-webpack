@@ -4,7 +4,7 @@ const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
   devServer: {
     port: '8000',
     static: {
