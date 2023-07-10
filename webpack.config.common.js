@@ -2,13 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   target: 'web',
   entry: './src/scripts/index.js',
   output: {
-    filename: '[name].[contenthash].js',
+    filename: 'scripts/[name].[contenthash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     assetModuleFilename: '[name][ext][query]'
@@ -26,7 +25,10 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext][query]'
+        }
       },
       {
         test: /\.svg/i,
@@ -35,49 +37,12 @@ module.exports = {
       {
         test: /\.(eot|otf|ttf|woff|woff2)$/i,
         generator: {
-          filename: '[name][ext][query]'
+          filename: 'fonts/[name][ext][query]'
         }
       }
     ],
   },
   optimization: {
-    minimizer: [
-      "...",
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminMinify,
-          options: {
-            plugins: [
-              ["gifsicle", { interlaced: true }],
-              ["jpegtran", { progressive: true }],
-              ["optipng", { optimizationLevel: 5 }],
-              [
-                "svgo",
-                {
-                  plugins: [
-                    {
-                      name: "preset-default",
-                      params: {
-                        overrides: {
-                          removeViewBox: false,
-                          addAttributesToSVGElement: {
-                            params: {
-                              attributes: [
-                                {xmlns: "http://www.w3.org/2000/svg"},
-                              ],
-                            },
-                          },
-                        },
-                      },
-                    },
-                  ],
-                },
-              ],
-            ],
-          }
-        }
-      }),
-    ],
     splitChunks: {
       chunks: "all",
     },
