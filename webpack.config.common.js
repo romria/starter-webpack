@@ -52,7 +52,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html')
+      template: path.join(__dirname, 'src', 'index.html'),
+      inject: 'body',
+      scriptLoading: 'defer'
     }),
     new RobotstxtPlugin({}), // Options: https://github.com/itgalaxy/generate-robotstxt
     new WebpackManifestPlugin({}) // Options: https://github.com/shellscape/webpack-manifest-plugin#options

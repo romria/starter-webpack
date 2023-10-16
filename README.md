@@ -1,9 +1,9 @@
-# Landing page starter kit
+# Webpack starter app
 
-Simple starter to build a landing page. Utilizes Webpack v5 for bundling
+Simple starter to build a web page. 
 
 ### Requirements
-* [Node.js](https://nodejs.org/) v18.11.0 or higher
+* [Node.js](https://nodejs.org/) v18.x or higher
 
 ### Installation
 
