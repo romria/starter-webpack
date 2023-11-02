@@ -6,12 +6,6 @@ const {WebpackManifestPlugin} = require('webpack-manifest-plugin');
 module.exports = {
   target: 'web',
   entry: './src/scripts/index.js',
-  output: {
-    filename: 'scripts/[name].[contenthash].js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    assetModuleFilename: '[name][ext][query]'
-  },
   module: {
     rules: [
       {

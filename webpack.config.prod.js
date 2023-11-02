@@ -1,3 +1,4 @@
+const path = require("path");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -8,6 +9,12 @@ const commonConfig = require('./webpack.config.common');
 module.exports = merge(commonConfig, {
   mode: 'production',
   // devtool: 'source-map',
+  output: {
+    filename: 'scripts/[name].[contenthash].js',
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+    assetModuleFilename: '[name][ext][query]'
+  },
   module: {
     rules: [
       {
