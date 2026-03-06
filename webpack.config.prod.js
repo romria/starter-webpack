@@ -1,8 +1,19 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { merge } = require('webpack-merge');
+const { mergeWithRules } = require('webpack-merge');
+const { CustomizeRule } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
+
+const merge = mergeWithRules({
+  module: {
+    rules: {
+      test: CustomizeRule.Match,
+      generator: CustomizeRule.Replace,
+      type: CustomizeRule.Replace,
+    },
+  },
+});
 
 module.exports = merge(commonConfig, {
   mode: 'production',
@@ -16,12 +27,14 @@ module.exports = merge(commonConfig, {
     rules: [
       {
         test: /\.(jpe?g|png|gif)$/i,
+        type: 'asset/resource',
         generator: {
           filename: 'images/[name].[contenthash][ext]',
         },
       },
       {
         test: /\.(eot|otf|ttf|woff|woff2)$/i,
+        type: 'asset/resource',
         generator: {
           filename: 'fonts/[name].[contenthash][ext]',
         },
