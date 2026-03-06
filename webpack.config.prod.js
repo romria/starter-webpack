@@ -1,22 +1,43 @@
-const path = require("path");
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-// const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
-const {merge} = require('webpack-merge');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { mergeWithRules, CustomizeRule } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
+
+const merge = mergeWithRules({
+  module: {
+    rules: {
+      test: CustomizeRule.Match,
+      generator: CustomizeRule.Replace,
+      type: CustomizeRule.Replace,
+    },
+  },
+});
 
 module.exports = merge(commonConfig, {
   mode: 'production',
-  // devtool: 'source-map',
   output: {
     filename: 'scripts/[name].[contenthash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
-    assetModuleFilename: '[name][ext][query]'
+    clean: true,
   },
   module: {
     rules: [
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[contenthash][ext]',
+        },
+      },
+      {
+        test: /\.(eot|otf|ttf|woff|woff2)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[contenthash][ext]',
+        },
+      },
       {
         test: /\.s?css$/i,
         use: [
@@ -25,9 +46,9 @@ module.exports = merge(commonConfig, {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[local]'
+                localIdentName: '[local]',
               },
-            }
+            },
           },
           'postcss-loader',
         ],
@@ -35,17 +56,17 @@ module.exports = merge(commonConfig, {
     ],
   },
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
     minimizer: [
-      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-      `...`,
+      '...',
       new CssMinimizerPlugin(),
     ],
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].[contenthash].css',
     }),
-  ]
+  ],
 });
