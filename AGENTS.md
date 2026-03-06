@@ -17,13 +17,17 @@ No test runner is configured.
 
 This is a minimal webpack 5 landing page starter using TypeScript. The webpack config is split into three files:
 
-- `webpack.config.common.js` — shared config: entry (`src/scripts/index.ts`), loaders (HTML, ts-loader, images, fonts, SVG inline), HtmlWebpackPlugin
-- `webpack.config.dev.js` — merges common; uses `style-loader` for injected CSS, dev server on port 8000, source maps via `eval-cheap-module-source-map`
-- `webpack.config.prod.js` — merges common; outputs to `build/`, extracts CSS via `MiniCssExtractPlugin` with content hashes, minifies CSS, `output.clean: true`, `splitChunks`
+- `webpack.config.common.ts` — shared config: entry (`src/scripts/index.ts`), loaders (HTML, ts-loader, images, fonts, SVG inline), HtmlWebpackPlugin
+- `webpack.config.dev.ts` — merges common; uses `style-loader` for injected CSS, dev server on port 8000, source maps via `eval-cheap-module-source-map`
+- `webpack.config.prod.ts` — merges common; outputs to `build/`, extracts CSS via `MiniCssExtractPlugin` with content hashes, minifies CSS, `output.clean: true`, `splitChunks`
+
+All three are TypeScript files loaded by webpack-cli via `ts-node` (registered through `rechoir`/`interpret`). They compile to CommonJS at runtime — controlled by `ts-node.compilerOptions.module = "CommonJS"` in `tsconfig.json`. Use `__dirname` (not `import.meta.dirname`) in these files.
 
 ### CSS pipeline
 
-Styles use PostCSS (configured in `postcss.config.js`) with SCSS syntax via `postcss-scss` parser. The pipeline runs: `postcss-import` → `postcss-simple-vars` → `postcss-preset-env`. No Sass compiler — SCSS-like syntax is processed entirely by PostCSS.
+Styles use PostCSS (configured in `postcss.config.ts`) with SCSS syntax via `postcss-scss` parser. The pipeline runs: `postcss-import` → `postcss-simple-vars` → `postcss-preset-env`. No Sass compiler — SCSS-like syntax is processed entirely by PostCSS.
+
+postcss.config.ts is loaded via `jiti` (bundled in postcss-loader), so TypeScript is supported natively there without ts-node.
 
 Browser targets are defined once in the `browserslist` field in `package.json` and shared by both PostCSS and TypeScript.
 
@@ -44,12 +48,14 @@ All styles are imported from `src/scripts/index.ts` (the single JS entry point).
 - SVGs are inlined (`asset/inline`)
 - Raster images output to `images/`
 - Fonts output to `fonts/`
-- No content hash on asset filenames in dev; content hash applied in prod via per-rule `generator.filename` overrides in `webpack.config.prod.js`
+- No content hash on asset filenames in dev; content hash applied in prod via per-rule `generator.filename` overrides in `webpack.config.prod.ts`
+- prod config uses `mergeWithRules` (not plain `merge`) so that image/font rules replace rather than concatenate with common rules
 
 ### Tooling config files
 
-- `tsconfig.json` — `strict`, `target: ES2020`, `moduleResolution: bundler`; no `noEmit` (ts-loader handles emit)
-- `eslint.config.js` — flat config (CJS); `@eslint/js` + `typescript-eslint` + `eslint-config-prettier`
+- `tsconfig.json` — `strict`, `target: ES2020`, `moduleResolution: bundler` for `src/`; also contains a `ts-node` section overriding `module: CommonJS` for webpack config files
+- `tsconfig.node.json` — extends `tsconfig.json`; targets root `*.ts` config files with `module: CommonJS`, `allowImportingTsExtensions`, `noEmit` (IDE support only; ts-node uses the inline override in tsconfig.json at runtime)
+- `eslint.config.ts` — flat config (ESM); `@eslint/js` + `typescript-eslint` + `eslint-config-prettier`; loaded by ESLint's built-in TypeScript config support
 - `.prettierrc` — single quotes, trailing commas, 100 char print width
-- `postcss.config.js` — `postcss-scss` parser; plugins: import → simple-vars → preset-env (reads `browserslist` from `package.json`)
+- `postcss.config.ts` — `postcss-scss` parser; plugins: import → simple-vars → preset-env (reads `browserslist` from `package.json`); loaded via `jiti` by postcss-loader
 - `package.json` — `browserslist` field is the single source of truth for browser targets (used by both PostCSS and TypeScript)

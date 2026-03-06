@@ -1,7 +1,8 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import type { Configuration } from 'webpack';
 
-module.exports = {
+const config: Configuration = {
   target: 'web',
   entry: './src/scripts/index.ts',
   module: {
@@ -19,8 +20,8 @@ module.exports = {
         test: /\.(jpe?g|png|gif)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name][ext]'
-        }
+          filename: 'images/[name][ext]',
+        },
       },
       {
         test: /\.svg$/i,
@@ -30,9 +31,9 @@ module.exports = {
         test: /\.(eot|otf|ttf|woff|woff2)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name][ext]'
-        }
-      }
+          filename: 'fonts/[name][ext]',
+        },
+      },
     ],
   },
   resolve: {
@@ -46,3 +47,5 @@ module.exports = {
     }),
   ],
 };
+
+export default config;
