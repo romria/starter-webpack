@@ -1,8 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { mergeWithRules } = require('webpack-merge');
-const { CustomizeRule } = require('webpack-merge');
+const { mergeWithRules, CustomizeRule } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
 
 const merge = mergeWithRules({
