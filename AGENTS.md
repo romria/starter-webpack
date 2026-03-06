@@ -44,7 +44,7 @@ All styles are imported from `src/scripts/index.ts` (the single JS entry point).
 - SVGs are inlined (`asset/inline`)
 - Raster images output to `images/`
 - Fonts output to `fonts/`
-- No content hash on asset filenames in dev; content hash applied in prod via `assetModuleFilename`
+- No content hash on asset filenames in dev; content hash applied in prod via per-rule `generator.filename` overrides in `webpack.config.prod.js`
 
 ### Tooling config files
 

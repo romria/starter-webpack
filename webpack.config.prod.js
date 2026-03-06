@@ -10,11 +10,22 @@ module.exports = merge(commonConfig, {
     filename: 'scripts/[name].[contenthash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
-    assetModuleFilename: '[name].[contenthash][ext]',
     clean: true,
   },
   module: {
     rules: [
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        generator: {
+          filename: 'images/[name].[contenthash][ext]',
+        },
+      },
+      {
+        test: /\.(eot|otf|ttf|woff|woff2)$/i,
+        generator: {
+          filename: 'fonts/[name].[contenthash][ext]',
+        },
+      },
       {
         test: /\.s?css$/i,
         use: [
