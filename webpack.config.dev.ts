@@ -1,8 +1,10 @@
-const path = require('path');
-const { merge } = require('webpack-merge');
-const commonConfig = require('./webpack.config.common');
+import path from 'path';
+import { merge } from 'webpack-merge';
+import 'webpack-dev-server';
+import type { Configuration } from 'webpack';
+import commonConfig from './webpack.config.common.ts';
 
-module.exports = merge(commonConfig, {
+const config: Configuration = merge(commonConfig, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   devServer: {
@@ -33,3 +35,5 @@ module.exports = merge(commonConfig, {
     ],
   },
 });
+
+export default config;

@@ -1,8 +1,9 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { mergeWithRules, CustomizeRule } = require('webpack-merge');
-const commonConfig = require('./webpack.config.common');
+import path from 'path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import { mergeWithRules, CustomizeRule } from 'webpack-merge';
+import type { Configuration } from 'webpack';
+import commonConfig from './webpack.config.common.ts';
 
 const merge = mergeWithRules({
   module: {
@@ -14,7 +15,7 @@ const merge = mergeWithRules({
   },
 });
 
-module.exports = merge(commonConfig, {
+const config: Configuration = merge(commonConfig, {
   mode: 'production',
   output: {
     filename: 'scripts/[name].[contenthash].js',
@@ -70,3 +71,5 @@ module.exports = merge(commonConfig, {
     }),
   ],
 });
+
+export default config;

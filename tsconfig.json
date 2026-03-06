@@ -9,6 +9,13 @@
     "skipLibCheck": true,
     "sourceMap": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "node10"
+    },
+    "transpileOnly": true
+  },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build"]
 }
