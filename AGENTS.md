@@ -1,3 +1,7 @@
+# AGENTS.md
+
+Shared guidance for AI coding agents working with this repository.
+
 ## Commands
 
 ```bash
