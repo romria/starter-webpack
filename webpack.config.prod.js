@@ -1,19 +1,17 @@
-const path = require("path");
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-// const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
-const {merge} = require('webpack-merge');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
   mode: 'production',
-  // devtool: 'source-map',
   output: {
     filename: 'scripts/[name].[contenthash].js',
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
-    assetModuleFilename: '[name][ext][query]'
+    assetModuleFilename: '[name].[contenthash][ext]',
+    clean: true,
   },
   module: {
     rules: [
@@ -25,9 +23,9 @@ module.exports = merge(commonConfig, {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[local]'
+                localIdentName: '[local]',
               },
-            }
+            },
           },
           'postcss-loader',
         ],
@@ -35,17 +33,17 @@ module.exports = merge(commonConfig, {
     ],
   },
   optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
     minimizer: [
-      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-      `...`,
+      '...',
       new CssMinimizerPlugin(),
     ],
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'styles/[name].[contenthash].css',
     }),
-  ]
+  ],
 });

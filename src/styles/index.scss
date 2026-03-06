@@ -1,9 +1,15 @@
+@import "modern-normalize";
 @import "./variables.scss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $color-body-bg;
   color: $color-font-primary;
   font-family: Inter, sans-serif;
+  line-height: 1.5;
 }
 
 html, body {

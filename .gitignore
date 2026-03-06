@@ -1,6 +1,6 @@
 .idea
 .DS_*
-thumbs_db
+Thumbs.db
 *.log
 node_modules
 build

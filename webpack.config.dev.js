@@ -1,18 +1,17 @@
 const path = require('path');
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  // devtool: 'inline-source-map',
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    port: '8000',
+    port: 8000,
     static: {
-      directory: path.join(__dirname, 'public')
+      directory: path.join(__dirname, 'public'),
     },
     hot: true,
     liveReload: true,
-    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -24,13 +23,13 @@ module.exports = merge(commonConfig, {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[local]'
-              }
-            }
+                localIdentName: '[local]',
+              },
+            },
           },
           'postcss-loader',
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 });

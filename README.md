@@ -1,20 +1,13 @@
-# Webpack starter app
+# Webpack Starter
 
-Simple starter to build a web page. 
+Minimal webpack 5 + TypeScript starter for landing pages.
 
-### Requirements
-* [Node.js](https://nodejs.org/) v18.x or higher
-
-### Installation
+**Requires:** Node.js v18+
 
 ```bash
-npm install
+npm install      # install dependencies
+npm start        # dev server → http://localhost:8000
+npm run build    # production build → build/
+npm run lint     # ESLint
+npm run format   # Prettier
 ```
-
-### Run the app
-
-```bash
-npm start
-```
-
-Open in a browser [http://localhost:8000](http://localhost:8000)
