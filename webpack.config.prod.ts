@@ -3,7 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import { mergeWithRules, CustomizeRule } from 'webpack-merge';
 import type { Configuration } from 'webpack';
-import commonConfig from './webpack.config.common.ts';
+import commonConfig from './webpack.config.common';
 
 const merge = mergeWithRules({
   module: {

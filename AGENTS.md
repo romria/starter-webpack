@@ -5,10 +5,11 @@ Shared guidance for AI coding agents working with this repository.
 ## Commands
 
 ```bash
-npm start        # Dev server at http://localhost:8000 (HMR + live reload)
-npm run build    # Production build → build/
-npm run lint     # ESLint (TypeScript)
-npm run format   # Prettier (src/)
+npm start          # Dev server at http://localhost:8000 (HMR + live reload)
+npm run build      # Production build → build/
+npm run typecheck  # TypeScript type check (tsc --noEmit)
+npm run lint       # ESLint (TypeScript)
+npm run format     # Prettier (src/)
 ```
 
 No test runner is configured.
@@ -53,8 +54,7 @@ All styles are imported from `src/scripts/index.ts` (the single JS entry point).
 
 ### Tooling config files
 
-- `tsconfig.json` — `strict`, `target: ES2020`, `moduleResolution: bundler` for `src/`; also contains a `ts-node` section overriding `module: CommonJS` for webpack config files
-- `tsconfig.node.json` — extends `tsconfig.json`; targets root `*.ts` config files with `module: CommonJS`, `allowImportingTsExtensions`, `noEmit` (IDE support only; ts-node uses the inline override in tsconfig.json at runtime)
+- `tsconfig.json` — `strict`, `target: ES2020`, `moduleResolution: bundler`; includes both `src/**/*` and root `*.ts` config files; contains a `ts-node` section overriding `module: CommonJS` for webpack config files at runtime
 - `eslint.config.ts` — flat config (ESM); `@eslint/js` + `typescript-eslint` + `eslint-config-prettier`; loaded by ESLint's built-in TypeScript config support
 - `.prettierrc` — single quotes, trailing commas, 100 char print width
 - `postcss.config.ts` — `postcss-scss` parser; plugins: import → simple-vars → preset-env (reads `browserslist` from `package.json`); loaded via `jiti` by postcss-loader
