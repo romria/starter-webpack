@@ -2,7 +2,7 @@ import path from 'path';
 import { merge } from 'webpack-merge';
 import 'webpack-dev-server';
 import type { Configuration } from 'webpack';
-import commonConfig from './webpack.config.common.ts';
+import commonConfig from './webpack.config.common';
 
 const config: Configuration = merge(commonConfig, {
   mode: 'development',

@@ -5,8 +5,12 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.config.dev.ts --progress",
     "build": "webpack --config=webpack.config.prod.ts --progress",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "format": "prettier --write src"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "browserslist": [
     "> 0.5%",
